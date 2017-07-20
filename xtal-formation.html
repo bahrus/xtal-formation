@@ -1,36 +1,5 @@
-<link rel="import" href="../polymer/polymer-element.html">
+<link async rel="import" href="../poly-prep/poly-prep.html">
 
 <dom-module id="xtal-formation">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
-
-  <script>
-    /**
-     * `xtal-formation`
-     * Serialize a form into various formats
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class XtalFormation extends Polymer.Element {
-      static get is() { return 'xtal-formation'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'xtal-formation'
-          }
-        };
-      }
-    }
-
-    window.customElements.define(XtalFormation.is, XtalFormation);
-  </script>
+  <script src="xtal-formation.js"></script>
 </dom-module>
