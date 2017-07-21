@@ -161,7 +161,7 @@ var xtal;
              * @demo demo/index.html
             */
             class XtalFormation extends Polymer.Element {
-                static get is() { return 'xtal-form'; }
+                static get is() { return 'xtal-formation'; }
                 static get properties() {
                     return {
                         disabled: {
@@ -238,16 +238,24 @@ var xtal;
                     const childInputs = formElm.querySelectorAll('input');
                     for (let i = 0, ii = childInputs.length; i < ii; i++) {
                         const childInput = childInputs[i];
-                        childInput['_value'] = childInput.value;
-                        Object.defineProperty(childInput, "value", {
-                            get: function () { return this._value; },
-                            set: function (v) {
-                                this._value = v;
-                                if (!validateInputElement(this))
-                                    return;
+                        if (childInput.type === 'hidden') {
+                            childInput['_value'] = childInput.value;
+                            Object.defineProperty(childInput, "value", {
+                                get: function () { return this._value; },
+                                set: function (v) {
+                                    ;
+                                    this._value = v;
+                                    if (!validateInputElement(this))
+                                        return;
+                                    this.updateInfo(formElm);
+                                }
+                            });
+                        }
+                        else {
+                            childInput.addEventListener('input', e => {
                                 this.updateInfo(formElm);
-                            }
-                        });
+                            });
+                        }
                     }
                     this.updateInfo(formElm);
                 }
@@ -256,6 +264,7 @@ var xtal;
                         this.updateInfo(null);
                 }
             }
+            customElements.define(XtalFormation.is, XtalFormation);
         }
         const syncFlag = 'xtal_elements_formation_sync';
         if (window[syncFlag]) {
