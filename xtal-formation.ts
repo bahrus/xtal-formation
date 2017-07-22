@@ -1,7 +1,6 @@
 module xtal.elements{
     function initXtalFormation(){
-        const tagName = 'xtal-formation'
-        if(customElements.get(tagName)) return;
+        if(customElements.get('xtal-formation')) return;
         
 
         interface IXtalFormationProperties{
@@ -160,7 +159,7 @@ module xtal.elements{
             computedRequestUrl;
             computedRequestBody;
             recomputeOnEnable: boolean;
-            static get is(){return 'xtal-formation';}
+            //static get is(){return 'xtal-formation';}
             static get properties() : IXtalFormationProperties{
                 return{
                     disabled:{
@@ -257,7 +256,7 @@ module xtal.elements{
             }
 
         }
-        customElements.define(XtalFormation.is, XtalFormation);
+        customElements.define('xtal-formation', XtalFormation);
     }
     const syncFlag = 'xtal_elements_formation_sync'
     if(window[syncFlag]){

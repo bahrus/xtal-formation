@@ -3,7 +3,6 @@ var xtal;
     var elements;
     (function (elements) {
         function initXtalFormation() {
-            const tagName = 'xtal-formation';
             if (customElements.get(tagName))
                 return;
             function serialize(form, asObject) {
@@ -161,7 +160,7 @@ var xtal;
              * @demo demo/index.html
             */
             class XtalFormation extends Polymer.Element {
-                static get is() { return 'xtal-formation'; }
+                //static get is(){return 'xtal-formation';}
                 static get properties() {
                     return {
                         disabled: {
@@ -264,7 +263,7 @@ var xtal;
                         this.updateInfo(null);
                 }
             }
-            customElements.define(XtalFormation.is, XtalFormation);
+            customElements.define('xtal-formation', XtalFormation);
         }
         const syncFlag = 'xtal_elements_formation_sync';
         if (window[syncFlag]) {
