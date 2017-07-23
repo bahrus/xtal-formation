@@ -1,3 +1,5 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/bahrus/xtal-formation)
+
 # \<xtal-formation\>
 
 \<xtal-formation\> declaratively creates objects or http request parameters based on the HTML Form element.
