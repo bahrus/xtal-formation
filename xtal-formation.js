@@ -3,7 +3,7 @@ var xtal;
     var elements;
     (function (elements) {
         function initXtalFormation() {
-            if (customElements.get(tagName))
+            if (customElements.get('xtal-formation'))
                 return;
             function serialize(form, asObject) {
                 if (!form || form.nodeName !== "FORM") {
@@ -223,7 +223,7 @@ var xtal;
                             this['_setComputedRequestUrl'](action + delim + queryString);
                             this['_setComputedRequestBody']('');
                             break;
-                        case 'post':
+                        default:
                             this['_setComputedRequestUrl'](action);
                             this['_setComputedRequestBody'](queryString);
                             break;
@@ -239,6 +239,7 @@ var xtal;
                         const childInput = childInputs[i];
                         if (childInput.type === 'hidden') {
                             childInput['_value'] = childInput.value;
+                            const _this = this;
                             Object.defineProperty(childInput, "value", {
                                 get: function () { return this._value; },
                                 set: function (v) {
@@ -246,7 +247,7 @@ var xtal;
                                     this._value = v;
                                     if (!validateInputElement(this))
                                         return;
-                                    this.updateInfo(formElm);
+                                    _this.updateInfo(formElm);
                                 }
                             });
                         }

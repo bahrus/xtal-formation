@@ -217,7 +217,7 @@ module xtal.elements{
                         this['_setComputedRequestUrl'](action + delim + queryString);
                         this['_setComputedRequestBody']('');
                         break;
-                    case 'post':
+                    default:
                         this['_setComputedRequestUrl'](action);
                         this['_setComputedRequestBody'](queryString);
                         break;
@@ -233,13 +233,14 @@ module xtal.elements{
                     const childInput = childInputs[i] as HTMLInputElement;
                     if(childInput.type === 'hidden'){
                         childInput['_value'] = childInput.value;
+                        const _this = this;
                         Object.defineProperty(childInput, "value", {
                             get: function() {return this._value;},
                             set: function(v) {
                                 ;
                                 this._value = v;
                                 if(!validateInputElement(this as HTMLInputElement)) return;
-                                this.updateInfo(formElm);
+                                _this.updateInfo(formElm);
                             }
                         });
                     }else{

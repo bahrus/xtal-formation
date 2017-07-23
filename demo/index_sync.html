@@ -1,34 +1,82 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>xtal-formation demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>xtal-formation demo</title>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../xtal-formation-sync.html">
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic xtal-formation demo</h3>
-      <demo-snippet>
-        <template>
-          <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}">
-            <form method="POST">
-              <input type="text" name="myName">
-            </form>
-          </xtal-formation>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+  
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    </style>
+  </custom-style>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+  <link rel="import" href="../xtal-formation-sync.html">
+  <link rel="import" href="../../xtal-json-editor/xtal-json-editor-sync.html">
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic xtal-formation demo</h3>
+    <demo-snippet>
+      <template>
+        <dom-bind>
+          <template>
+            <div>Method:  POST</div>
+            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+              ID: <input type="text" value="{{myID::input}}">
+              <form method="POST" action="hello/world">
+                Name: <input type="text" name="myName">
+                <input type="hidden" name="myID" value="[[myID]]">
+              </form>
+            </xtal-formation>
+            <div>serialized-form:</div>
+            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>computedRequestBody:</div>
+            <pre>
+              [[myComputedRequestBody]]
+            </pre>
+            <div>computedRequestUrl:</div>
+            <pre>
+              [[myComputedRequestUrl]]
+            </pre>
+          </template>
+        </dom-bind>
+        <dom-bind>
+          <template>
+            <div>Method:  Get</div>
+            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+              ID: <input type="text" value="{{myID::input}}">
+              <form method="GET" action="hello/world">
+                Name: <input type="text" name="myName">
+                <input type="hidden" name="myID" value="[[myID]]">
+              </form>
+            </xtal-formation>
+            <div>serialized-form:</div>
+            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>computedRequestBody:</div>
+            <pre>
+              [[myComputedRequestBody]]
+            </pre>
+            <div>computedRequestUrl:</div>
+            <pre>
+              [[myComputedRequestUrl]]
+            </pre>
+          </template>
+        </dom-bind>
+      </template>
+
+    </demo-snippet>
+  </div>
+</body>
+
 </html>

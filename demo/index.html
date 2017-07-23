@@ -21,16 +21,57 @@
         <template>
           <link async rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
           <link async rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+          <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
           <link async rel="import" href="../xtal-formation.html">
+          <link rel="import" href="../../xtal-json-editor/xtal-json-editor-sync.html">
         </template>
       </full-poly-prep>
       <demo-snippet>
         <template>
-          <xtal-formation>
-            <form>
-              
-            </form>
-          </xtal-formation>
+        <dom-bind>
+          <template>
+            <div>Method:  POST</div>
+            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+              ID: <input type="text" value="{{myID::input}}">
+              <form method="POST" action="hello/world">
+                Name: <input type="text" name="myName">
+                <input type="hidden" name="myID" value="[[myID]]">
+              </form>
+            </xtal-formation>
+            <div>serialized-form:</div>
+            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>computedRequestBody:</div>
+            <pre>
+              [[myComputedRequestBody]]
+            </pre>
+            <div>computedRequestUrl:</div>
+            <pre>
+              [[myComputedRequestUrl]]
+            </pre>
+          </template>
+        </dom-bind>
+        <dom-bind>
+          <template>
+            <div>Method:  Get</div>
+            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+              ID: <input type="text" value="{{myID::input}}">
+              <form method="GET" action="hello/world">
+                Name: <input type="text" name="myName">
+                <input type="hidden" name="myID" value="[[myID]]">
+              </form>
+            </xtal-formation>
+            <div>serialized-form:</div>
+            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>computedRequestBody:</div>
+            <pre>
+              [[myComputedRequestBody]]
+            </pre>
+            <div>computedRequestUrl:</div>
+            <pre>
+              [[myComputedRequestUrl]]
+            </pre>
+          </template>
+        </dom-bind>
         </template>
       </demo-snippet>
     </div>
