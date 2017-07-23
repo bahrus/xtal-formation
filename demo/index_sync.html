@@ -32,15 +32,15 @@
         <dom-bind>
           <template>
             <div>Method:  POST</div>
-            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+            <xtal-formation publish-form objectified-form="{{myObjectifiedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
               ID: <input type="text" value="{{myID::input}}">
               <form method="POST" action="hello/world">
                 Name: <input type="text" name="myName">
                 <input type="hidden" name="myID" value="[[myID]]">
               </form>
             </xtal-formation>
-            <div>serialized-form:</div>
-            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>objectified-form:</div>
+            <xtal-json-editor watch="[[myObjectifiedForm]]"></xtal-json-editor>
             <div>computedRequestBody:</div>
             <pre>
               [[myComputedRequestBody]]
@@ -54,15 +54,15 @@
         <dom-bind>
           <template>
             <div>Method:  Get</div>
-            <xtal-formation serialized-form="{{mySerializedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
+            <xtal-formation publish-form objectified-form="{{myObjectifiedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
               ID: <input type="text" value="{{myID::input}}">
               <form method="GET" action="hello/world">
                 Name: <input type="text" name="myName">
                 <input type="hidden" name="myID" value="[[myID]]">
               </form>
             </xtal-formation>
-            <div>serialized-form:</div>
-            <xtal-json-editor watch="[[mySerializedForm]]"></xtal-json-editor>
+            <div>objectified-form:</div>
+            <xtal-json-editor watch="[[myObjectifiedForm]]"></xtal-json-editor>
             <div>computedRequestBody:</div>
             <pre>
               [[myComputedRequestBody]]

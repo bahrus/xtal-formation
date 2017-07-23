@@ -4,13 +4,13 @@ module xtal.elements{
         
 
         interface IXtalFormationProperties{
-            disabled: boolean | polymer.PropObjectType,
-            serializedForm: object | polymer.PropObjectType,
+            publishForm: boolean | polymer.PropObjectType,
+            objectifiedForm: object | polymer.PropObjectType,
             computedRequestUrl: string | polymer.PropObjectType,
             computedRequestBody: string | polymer.PropObjectType,            
         }
 
-        function serialize(form: HTMLFormElement, asObject?: boolean) : string | {[key: string] : string | string[]} {
+        function objectify(form: HTMLFormElement, asObject?: boolean) : string | {[key: string] : string | string[]} {
             if (!form || form.nodeName !== "FORM") {
                 return;
             }
@@ -147,35 +147,51 @@ module xtal.elements{
         }        
         /**
          * `xtal-formation`
-         * Serialize a form into various formats
+         * Declaratively create an object and query string from a form
          *
          * @customElement
          * @polymer
          * @demo demo/index.html
         */
         class XtalFormation extends Polymer.Element implements IXtalFormationProperties{
-            disabled: boolean;
-            serializedForm;
+
+            publishForm: boolean;
+            objectifiedForm;
             computedRequestUrl;
             computedRequestBody;
             recomputeOnEnable: boolean;
             //static get is(){return 'xtal-formation';}
             static get properties() : IXtalFormationProperties{
                 return{
-                    disabled:{
+                    /**
+                    * Must be true for this component to be activated
+                    */
+                    publishForm:{
                         type: Boolean,
-                        observer: 'onDisabledChange'
+                        observer: 'onPublishForm'
                     },
-                    serializedForm:{
+                    /**
+                     * Expression for where to publish the form as a plain old JavaScript object
+                     */
+                    objectifiedForm:{
                         type: Object,
                         notify: true,
                         readOnly: true,
                     },
+                    /**
+                     * Expression for where to publish the url / query string portion of a form.
+                     * If method of form inside this element is get, input elements will be added to the query string
+                     */
                     computedRequestUrl:{
                         type: String,
                         notify: true,
                         readOnly: true,
                     },
+                    /**
+                     * Expression for where to publish the body portion of a url request, as a regular form
+                     * would do.  If method of form is  POST, then the input elements inside the form
+                     * will be added to the request body 
+                     */
                     computedRequestBody:{
                         type: String,
                         notify: true,
@@ -183,34 +199,33 @@ module xtal.elements{
                     }
                 }
             }
-            validate(formElm: HTMLFormElement, serializedForm: any) : boolean {
-                if(!formElm) formElm = this.querySelector('form') as HTMLFormElement;
-                if(!serializedForm) serializedForm = serialize(formElm, true);
-                const validator = this.querySelector('js-validator') as HTMLElement;
-                let  customValidatorFns;
-                if(validator){
-                    customValidatorFns = eval(validator.innerText);
-                }
-                if(customValidatorFns){
-                    for(const customValidatorFn of customValidatorFns){
-                        if(!customValidatorFn(serializedForm)) return false;
-                    }
-                }
-                return true;
-            }
+            // static validate(formElm: HTMLFormElement, serializedForm: any) : boolean {
+            //     //if(!formElm) formElm = this.querySelector('form') as HTMLFormElement;
+            //     if(!serializedForm) serializedForm = serialize(formElm, true);
+            //     //const validator = this.querySelector('js-validator') as HTMLElement;
+            //     let  customValidatorFns;
+            //     if(validator){
+            //         customValidatorFns = eval(validator.innerText);
+            //     }
+            //     if(customValidatorFns){
+            //         for(const customValidatorFn of customValidatorFns){
+            //             if(!customValidatorFn(serializedForm)) return false;
+            //         }
+            //     }
+            //     return true;
+            // }
             updateInfo(formElm: HTMLFormElement){
                 if(!formElm) formElm = this.querySelector('form') as HTMLFormElement;
-                if(this.disabled){
-                    this.recomputeOnEnable = true;
+                if(!this.publishForm){
+                    //this.recomputeOnEnable = true;
                     return;
                 }
-                const formData = serialize(formElm, true);
-                if(!this.validate(formElm, formData)) return;
-                this['_setSerializedForm'](formData);
-                const queryString = serialize(formElm, false);
+                const formData = objectify(formElm, true);
+                //if(!this.validate(formElm, formData)) return;
+                this['_setObjectifiedForm'](formData);
+                const queryString = objectify(formElm, false);
                 const method = formElm.method.toLowerCase();
                 const action = formElm.action;
-                console.log(method);
                 switch(method){
                     case 'get':
                         const delim = action.indexOf('?') > -1 ? '&' :  '?';
@@ -252,7 +267,7 @@ module xtal.elements{
                 }
                 this.updateInfo(formElm);
             }
-            onDisabledChange(newVal){
+            onPublishForm(newVal){
                 if(newVal) this.updateInfo(null);
             }
 

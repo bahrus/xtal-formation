@@ -1,6 +1,12 @@
 # \<xtal-formation\>
 
-Serialize a form into various formats
+\<xtal-formation\> declaratively creates objects or http request parameters based on the HTML Form element.
+
+\<xtal-formation\> is somewhat inspired by Polymer's \<iron-ajax\> component.  The major differences are:
+
+*  \<xtal-formation\> has no legacy Polymer dependencies
+*  \<xtal-formation\> does not have any logic to actually submit the form. Instead, its focus is squarely on providing to other components the form input elements in various formats that might be most useful, and applying the validation logic built into the form element / input elements.
+
 
 ## Install the Polymer-CLI
 
