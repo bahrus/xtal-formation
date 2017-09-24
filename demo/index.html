@@ -1,41 +1,38 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>xtal-formation demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>xtal-formation demo</title>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic xtal-formation demo</h3>
-      <link async rel="import" href="../../poly-prep/full-poly-prep.html">
-      <full-poly-prep>
-        <template>
-          <link async rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-          <link async rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-          <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-          <link async rel="import" href="../xtal-formation.html">
-          <link rel="import" href="../../xtal-json-editor/xtal-json-editor-sync.html">
-        </template>
-      </full-poly-prep>
-      <demo-snippet>
-        <template>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    </style>
+  </custom-style>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+  <script src="../xtal-formation.js"></script>
+  <link rel="import" href="../../xtal-json-editor/xtal-json-editor.html">
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic xtal-formation demo</h3>
+    <demo-snippet>
+      <template>
         <dom-bind>
           <template>
             <div>Method:  POST</div>
-            <xtal-formation 
-              publish-form objectified-form="{{myObjectifiedForm}}" 
-              computed-request-body="{{myComputedRequestBody}}" 
-              computed-request-url="{{myComputedRequestUrl}}"
-            >
+            <xtal-formation publish-form objectified-form="{{myObjectifiedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
               ID: <input type="text" value="{{myID::input}}">
               <form method="POST" action="hello/world">
                 Name: <input type="text" name="myName">
@@ -57,11 +54,7 @@
         <dom-bind>
           <template>
             <div>Method:  Get</div>
-            <xtal-formation 
-              publish-form objectified-form="{{myObjectifiedForm}}" 
-              computed-request-body="{{myComputedRequestBody}}" 
-              computed-request-url="{{myComputedRequestUrl}}"
-            >
+            <xtal-formation publish-form objectified-form="{{myObjectifiedForm}}" computed-request-body="{{myComputedRequestBody}}" computed-request-url="{{myComputedRequestUrl}}">
               ID: <input type="text" value="{{myID::input}}">
               <form method="GET" action="hello/world">
                 Name: <input type="text" name="myName">
@@ -80,8 +73,10 @@
             </pre>
           </template>
         </dom-bind>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+      </template>
+
+    </demo-snippet>
+  </div>
+</body>
+
 </html>

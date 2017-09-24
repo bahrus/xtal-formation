@@ -1,14 +1,16 @@
-module xtal.elements{
-    function initXtalFormation(){
+export interface IXtalFormationProperties{
+    publishForm: boolean | polymer.PropObjectType,
+    objectifiedForm: object | polymer.PropObjectType,
+    computedRequestUrl: string | polymer.PropObjectType,
+    computedRequestBody: string | polymer.PropObjectType,            
+}
+(function () {
+    let cs;
+    function initXtalFormation(polymerMixin : any){
         if(customElements.get('xtal-formation')) return;
         
 
-        interface IXtalFormationProperties{
-            publishForm: boolean | polymer.PropObjectType,
-            objectifiedForm: object | polymer.PropObjectType,
-            computedRequestUrl: string | polymer.PropObjectType,
-            computedRequestBody: string | polymer.PropObjectType,            
-        }
+
 
         function objectify(form: HTMLFormElement, asObject?: boolean) : string | {[key: string] : string | string[]} {
             if (!form || form.nodeName !== "FORM") {
@@ -153,7 +155,7 @@ module xtal.elements{
          * @polymer
          * @demo demo/index.html
         */
-        class XtalFormation extends Polymer.Element implements IXtalFormationProperties{
+        class XtalFormation extends polymerMixin(HTMLElement) implements IXtalFormationProperties{
 
             publishForm: boolean;
             objectifiedForm;
@@ -274,19 +276,18 @@ module xtal.elements{
         }
         customElements.define('xtal-formation', XtalFormation);
     }
-    const syncFlag = 'xtal_elements_formation_sync'
-    if(window[syncFlag]){
-        customElements.whenDefined('poly-prep-sync').then(() => initXtalFormation());
-        delete window[syncFlag];
-    }else{
-        if(customElements.get('poly-prep') || customElements.get('full-poly-prep')){
-            initXtalFormation();
-        }else{
-            customElements.whenDefined('poly-prep').then(() => initXtalFormation());
-            customElements.whenDefined('full-poly-prep').then(() => initXtalFormation());
-        }
     
+
+    function WaitForPolymer()
+    {
+        cs = document.currentScript;
+        if ((typeof Polymer !== 'function') || (typeof Polymer.ElementMixin !== 'function')) {
+           setTimeout( WaitForPolymer, 100);
+           return;
+        }
+        initXtalFormation(Polymer.ElementMixin);
     }
-}    
+    WaitForPolymer();
+})();   
 
 
